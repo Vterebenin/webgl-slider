@@ -1,7 +1,7 @@
 $(document).ready(function () {
-	
+
 	// проверка на нажатие мыши
-	
+
 	// залив картинок в массив
 	var images = [];
 	var carouselImg = $('.carousel__webgl');
@@ -10,39 +10,48 @@ $(document).ready(function () {
 		images.push(image);
 	}
 
-	function webglImage(id, image) {
+	function webglIt(id, image) {
 
 		//инициализация
 		init(id, image);
 		animate();
-		
+
 		var camera, scene, renderer;
 
 		// возможно какой-то UI?
 		var isUserInteracting = false,
 			onMouseDownMouseX = 0, onMouseDownMouseY = 0,
 			lon = 0, onMouseDownLon = 0,
-			lat = 0, onMouseDownLat = 0,
+			lat = 0, onMouseDowxnLat = 0,
 			phi = 0, theta = 0;
 
-		
-		// функция проверки нажатия мыши.
 		var mouseDown = false;
-		document.getElementById(id).onmousedown = function() { 
+		// функция проверки нажатия мыши.
+		document.getElementById(id).onmousedown = function () {
 			mouseDown = true;
 		}
-		document.getElementById(id).onmouseup = function() {
+		document.getElementById(id).onmouseup = function () {
+			mouseDown = false;
+		}
+		document.getElementById(id).onmouseout = function () {
 			mouseDown = false;
 		}
 
 
+
+
+
+		// функция инициализции
 		function init(id, image) {
 
 			var container, mesh;
+			var canvasWidth = $("#" + id).parent().width();
+			var canvasHeigth = $("#" + id).parent().height();
 
 			container = document.getElementById(id);
 
-			camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1100);
+			//создание камеры
+			camera = new THREE.PerspectiveCamera(75, canvasWidth / canvasHeigth, 1, 1100);
 			camera.target = new THREE.Vector3(0, 0, 0);
 
 			scene = new THREE.Scene();
@@ -60,8 +69,7 @@ $(document).ready(function () {
 
 			renderer = new THREE.WebGLRenderer();
 			renderer.setPixelRatio(window.devicePixelRatio);
-			var canvasWidth = $("#" + id).parent().width();
-			var canvasHeigth = $("#" + id).parent().height();
+
 
 			renderer.setSize(canvasWidth, canvasHeigth);
 			container.appendChild(renderer.domElement);
@@ -152,16 +160,12 @@ $(document).ready(function () {
 		}
 
 		function onDocumentMouseUp(event) {
-
 			isUserInteracting = false;
-
 		}
 
 		function onDocumentMouseWheel(event) {
-
 			camera.fov += event.deltaY * 0.05;
 			camera.updateProjectionMatrix();
-
 		}
 
 		function animate() {
@@ -171,6 +175,7 @@ $(document).ready(function () {
 
 		}
 
+
 		function update() {
 
 			if (isUserInteracting === false) {
@@ -179,7 +184,7 @@ $(document).ready(function () {
 
 			}
 
-			//lat = Math.max(- 85, Math.min(85, lat));
+			lat = Math.max(- 85, Math.min(85, lat));
 			phi = THREE.Math.degToRad(90 - lat);
 			theta = THREE.Math.degToRad(lon);
 
@@ -197,13 +202,12 @@ $(document).ready(function () {
 
 
 
-
 			camera.lookAt(camera.target);
 
-			
+
 			// distortion
 			//camera.position.copy(camera.target).negate();
-			
+
 
 			renderer.render(scene, camera);
 
@@ -213,8 +217,9 @@ $(document).ready(function () {
 
 	//отрисовка
 	for (var i = 0; i < images.length; i++) {
-		webglImage('container-' + i, images[i]);
+		webglIt('container-' + i, images[i]);
 	}
+
 	$('.slick-test').slick({
 		dots: true,
 		swipe: false,
