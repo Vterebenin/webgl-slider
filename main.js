@@ -1,28 +1,39 @@
 $(document).ready(function () {
-
-
-
+	
+	// проверка на нажатие мыши
+	
 	// залив картинок в массив
 	var images = [];
 	var carouselImg = $('.carousel__webgl');
-	console.log(carouselImg);
 	for (var i = 0; i < carouselImg.length; i++) {
 		image = carouselImg[i].currentSrc;
 		images.push(image);
 	}
-	console.log(images);
 
 	function webglImage(id, image) {
 
-		var camera, scene, renderer;
-
+		//инициализация
 		init(id, image);
 		animate();
+		
+		var camera, scene, renderer;
+
+		// возможно какой-то UI?
 		var isUserInteracting = false,
 			onMouseDownMouseX = 0, onMouseDownMouseY = 0,
 			lon = 0, onMouseDownLon = 0,
 			lat = 0, onMouseDownLat = 0,
 			phi = 0, theta = 0;
+
+		
+		// функция проверки нажатия мыши.
+		var mouseDown = false;
+		document.getElementById(id).onmousedown = function() { 
+			mouseDown = true;
+		}
+		document.getElementById(id).onmouseup = function() {
+			mouseDown = false;
+		}
 
 
 		function init(id, image) {
@@ -30,7 +41,6 @@ $(document).ready(function () {
 			var container, mesh;
 
 			container = document.getElementById(id);
-			console.log(container);
 
 			camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1100);
 			camera.target = new THREE.Vector3(0, 0, 0);
@@ -169,7 +179,7 @@ $(document).ready(function () {
 
 			}
 
-			lat = Math.max(- 85, Math.min(85, lat));
+			//lat = Math.max(- 85, Math.min(85, lat));
 			phi = THREE.Math.degToRad(90 - lat);
 			theta = THREE.Math.degToRad(lon);
 
@@ -177,11 +187,22 @@ $(document).ready(function () {
 			camera.target.y = 200 * Math.cos(phi);
 			camera.target.z = 200 * Math.sin(phi) * Math.sin(theta);
 
+
+			// восстановление позиции камеры
+			if ((lat < -0.1) && (!mouseDown)) {
+				lat += 0.1;
+			} else if ((lat > 0.1) && (!mouseDown)) {
+				lat -= 0.1;
+			}
+
+
+
+
 			camera.lookAt(camera.target);
 
 			
 			// distortion
-			camera.position.copy( camera.target ).negate();
+			//camera.position.copy(camera.target).negate();
 			
 
 			renderer.render(scene, camera);
@@ -194,10 +215,10 @@ $(document).ready(function () {
 	for (var i = 0; i < images.length; i++) {
 		webglImage('container-' + i, images[i]);
 	}
-	 $('.slick-test').slick({
-		 dots: true,
-		 swipe: false,
-	 });
+	$('.slick-test').slick({
+		dots: true,
+		swipe: false,
+	});
 
 
 });
