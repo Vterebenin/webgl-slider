@@ -35,11 +35,8 @@ $(document).ready(function () {
 		}
 		document.getElementById(id).onmouseout = function () {
 			mouseDown = false;
+			isUserInteracting = false;
 		}
-
-
-
-
 
 		// функция инициализции
 		function init(id, image) {
@@ -74,9 +71,9 @@ $(document).ready(function () {
 			renderer.setSize(canvasWidth, canvasHeigth);
 			container.appendChild(renderer.domElement);
 
-			document.addEventListener('mousedown', onDocumentMouseDown, false);
-			document.addEventListener('mousemove', onDocumentMouseMove, false);
-			document.addEventListener('mouseup', onDocumentMouseUp, false);
+			document.getElementById(id).addEventListener('mousedown', onDocumentMouseDown, false);
+			document.getElementById(id).addEventListener('mousemove', onDocumentMouseMove, false);
+			document.getElementById(id).addEventListener('mouseup', onDocumentMouseUp, false);
 			//document.addEventListener('wheel', onDocumentMouseWheel, false);
 
 			//
