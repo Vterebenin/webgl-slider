@@ -1,25 +1,21 @@
 body {
-	background-color: #ffffff;
 	margin: 0px;
 	overflow-x: hidden;
-	background-color: #e67e22;
+	background-color: #2ecc71;
 	text-align: center;
+	color: #2c3e50;
 }
 
-#info {
-	position: absolute;
-	top: 0px;
-	width: 100%;
-	color: #ffffff;
-	padding: 5px;
-	font-family: Monospace;
-	font-size: 13px;
-	font-weight: bold;
-	text-align: center;
+h1 {
+	margin-top: 40px;
 }
 
 a {
 	color: #ffffff;
+}
+
+.b-main {
+	margin-bottom: 60px;
 }
 
 .carousel__webgl {
@@ -27,11 +23,20 @@ a {
 }
 
 .carousel__item {
-	width: 860px;
+	max-width: 860px;
+	width: calc(100% - 80px);
 	height: 640px;
 	overflow: hidden;
 }
 .b-slider-container {
 	max-width: 860px;
+	width: calc(100% - 80px);
 	display: inline-block;
+}
+
+
+@media (max-width: 767px) {
+	.carousel__item {
+		height: 300px;
+	}
 }

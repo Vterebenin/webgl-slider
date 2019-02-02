@@ -1,43 +1,52 @@
 <html>
 
 <head>
-
-	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-	<link rel="stylesheet" type="text/css" href="lib/slick/slick/slick-theme.css"/>
+	<title>Webgl slider | Vterebenin</title>
+	<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+	<link rel="stylesheet" type="text/css" href="lib/slick/slick/slick-theme.css" />
 	<link href="main.css" rel="stylesheet">
 </head>
 
 <body>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-	
-	<!-- здесь какое-то место чтобы заливать изображения -->
-	<img class="carousel__webgl" src="01.jpg" alt="test"><!-- container-0 -->
-	<img class="carousel__webgl" src="03.jpg" alt="test"> <!--container-1 -->
-	<img class="carousel__webgl" src="04.jpg" alt="test"> <!--container-2 -->
-	<img class="carousel__webgl" src="05.jpg" alt="test"> <!--container-3 -->
-	
-	<!-- здесь слайдер -->
-	<div class="slick-test b-slider-container">
-		<div class="carousel__item">
-			<div id="container-0"></div><!-- как динамически создавать контейнер? -->
-		</div>
-		<div class="carousel__item">
-			<div id="container-1"></div>
-		</div>
-		<div class="carousel__item">
-			<div id="container-2"></div>
-		</div>
-		<div class="carousel__item">
-			<div id="container-3"></div>
-		</div>
-		<div class="carousel__item">
-			<img src="http://s.fotorama.io/2.jpg">
-		</div>
-		<div class="carousel__item">
-			<img src="http://s.fotorama.io/3.jpg">
+
+	<h1>Webgl slider powered by slick</h1>
+
+
+	<div class="b-main">
+		<!-- здесь какое-то место чтобы заливать изображения -->
+		<img class="carousel__webgl" src="01.jpg" alt="test"><!-- container-0 -->
+		<img class="carousel__webgl" src="03.jpg" alt="test">
+		<!--container-1 -->
+		<img class="carousel__webgl" src="04.jpg" alt="test">
+		<!--container-2 -->
+		<img class="carousel__webgl" src="05.jpg" alt="test">
+		<!--container-3 -->
+
+		<!-- здесь слайдер -->
+		<div class="slick-test b-slider-container">
+			<div class="carousel__item">
+				<div id="container-0"></div><!-- как динамически создавать контейнер? -->
+			</div>
+			<div class="carousel__item">
+				<div id="container-1"></div>
+			</div>
+			<div class="carousel__item">
+				<div id="container-2"></div>
+			</div>
+			<div class="carousel__item">
+				<div id="container-3"></div>
+			</div>
+			<div class="carousel__item">
+				<img src="http://s.fotorama.io/2.jpg">
+			</div>
+			<div class="carousel__item">
+				<img src="http://s.fotorama.io/3.jpg">
+			</div>
 		</div>
 	</div>
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
 	 crossorigin="anonymous"></script>

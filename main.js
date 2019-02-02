@@ -2,14 +2,17 @@ $(document).ready(function () {
 
 	// проверка на нажатие мыши
 
-	// залив картинок в массив
+	// залив соурса картинок в массив
 	var images = [];
+	// TODO: динамически выбираем класс?
 	var carouselImg = $('.carousel__webgl');
 	for (var i = 0; i < carouselImg.length; i++) {
 		image = carouselImg[i].currentSrc;
 		images.push(image);
 	}
 
+
+	// в параметры передаем айдишник контейнера и соурс иозбражения. 
 	function webglIt(id, image) {
 
 		//инициализация
@@ -117,19 +120,19 @@ $(document).ready(function () {
 
 			//
 
-			window.addEventListener('resize', onWindowResize, false);
+			//window.addEventListener('resize', onWindowResize, false);
 
 		}
 
-		function onWindowResize() {
-			var canvasWidth = $("#" + id).parent().width();
-			var canvasHeigth = $("#" + id).parent().height();
-			camera.aspect = canvasWidth / canvasHeigth;
-			camera.updateProjectionMatrix();
+		//function onWindowResize() {
+		//	var canvasWidth = $("#" + id).parent().width();
+		//	var canvasHeigth = $("#" + id).parent().height();
+		//	camera.aspect = canvasWidth / canvasHeigth;
+		//	camera.updateProjectionMatrix();
 
-			renderer.setSize(canvasWidth, canvasHeigth);
+		//	renderer.setSize(canvasWidth, canvasHeigth);
 
-		}
+		//}
 
 		function onDocumentMouseDown(event) {
 
