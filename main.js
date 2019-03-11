@@ -1,5 +1,54 @@
 $(document).ready(function () {
 
+	// нашел такой пример на stackoverflow 
+	// https://stackoverflow.com/questions/35575065/how-to-make-a-loading-screen-in-three-js
+
+	// в примере сделан прогресс бар, но можно сделать что-либо еще.
+	// внимательно почитай документацию на https://threejs.org/docs/?q=loading#api/en/loaders/managers/LoadingManager
+	
+	// суть: создаем какой-то элемент на странице(допустим div с прогресс баром)
+	var progress = document.createElement('div');
+	var progressBar = document.createElement('div');
+
+	// закидываем их на страницу
+	progress.appendChild(progressBar);
+	document.body.appendChild(progress);
+
+
+	
+	// создается manager загрузок, который тречит всю активность загрузок
+	// в моем примере с гитхаба грузится 4 текстуры через функцию textureLoader 
+	// поэтому в параметры этой функции(textureLoader) суем этого manager'а, чтобы ему было за чем следить
+	var manager = new THREE.LoadingManager();
+	manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+		// здесь добавляем код, который срабатывает в начале загрузки (до 0%)
+		// я вывожу комментарий и скрываю слайдер (условно можно еще показывать прелоадер)
+		console.log( 'Начал загружать файлы: ' + url + '.\nЗагружено ' + itemsLoaded + ' из ' + itemsTotal + ' файлов.' );
+		$(".b-main").css({
+			"display": "none",
+		})
+	};
+	manager.onProgress = function (item, loaded, total) {
+		// я сделал невидимый прогресс бар в конце страницы с гитхаба
+		// всего 4 текстуры значит отрезок будет грузиться как 25%-50%-75%-100%
+		// !!!эти две строчки заменить на то, как будет изменяться прелоадер!!!
+		progressBar.style.width = (loaded / total * 100) + '%';
+		console.log(progressBar.style.width)
+	};
+	manager.onLoad = function ( ) {
+		// здесь при необходимости добавляем код, который выполняется по окончании загрузки (после 100%)
+		// опять же комментарий и показываем уже слайдер. 
+		//Стоит здесь так же написать код скрывания прелоадера
+		console.log( 'Загрузилось!');	
+		$(".b-main").css({
+			"display": "block",
+		})
+	};
+	
+
+
+
+
 	// проверка на нажатие мыши
 
 	// залив соурса картинок в массив
@@ -14,6 +63,10 @@ $(document).ready(function () {
 
 	// в параметры передаем айдишник контейнера и соурс иозбражения. 
 	function webglIt(id, image) {
+
+
+
+
 
 		//инициализация
 		init(id, image);
@@ -41,8 +94,12 @@ $(document).ready(function () {
 			isUserInteracting = false;
 		}
 
+
+
 		// функция инициализции
 		function init(id, image) {
+
+
 
 			var container, mesh;
 			var canvasWidth = $("#" + id).parent().width();
@@ -60,7 +117,8 @@ $(document).ready(function () {
 			geometry.scale(- 1, 1, 1);
 
 			var material = new THREE.MeshBasicMaterial({
-				map: new THREE.TextureLoader().load(image),
+				// НЕ ЗАБЫТЬ ПОСТАВИТЬ ЗДЕСЬ manager'а!!!!!!!!!!!!!
+				map: new THREE.TextureLoader(manager).load(image),
 			});
 
 			mesh = new THREE.Mesh(geometry, material);
@@ -115,6 +173,7 @@ $(document).ready(function () {
 				reader.readAsDataURL(event.dataTransfer.files[0]);
 
 				document.body.style.opacity = 1;
+
 
 			}, false);
 
